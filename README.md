@@ -1,174 +1,202 @@
 # 🤖 Context-Aware RAG Chatbot
 
----
+A **context-aware AI chatbot** that uses **Retrieval-Augmented Generation (RAG)** to provide accurate, grounded responses from a trusted knowledge source.  
 
-## 1. Introduction
-
-Large Language Models (LLMs) are powerful but have limitations such as hallucinations, lack of awareness of external or private data, and weak handling of conversational context. This project addresses these challenges by implementing a **Context-Aware Retrieval-Augmented Generation (RAG) Chatbot** that grounds responses in a trusted knowledge source while maintaining conversational memory.
-
-The system is built using **LangChain v1.0+**, **OpenAI**, **FAISS**, and **Streamlit**, following modern best practices and avoiding deprecated APIs.
+This system combines **LangChain, OpenAI, FAISS, and Streamlit** to enable **multi-turn conversations**, reduce hallucinations, and improve response reliability.
 
 ---
 
-## 2. Problem Statement
+# 📌 Overview
 
-Traditional LLM-based chatbots:
+Large Language Models (LLMs) are powerful but often suffer from:
 
-- Cannot reliably answer questions from specific external documents
-- Often hallucinate responses
-- Do not understand follow-up questions without additional context handling
-- Expose poor UX and insecure API key handling
+- Hallucinated responses  
+- Lack of access to external/private data  
+- Poor handling of follow-up questions  
 
-There is a need for a conversational system that retrieves answers from a verified knowledge base, maintains conversational context, and provides a secure, user-friendly interface.
+This project solves these issues by implementing a **RAG-based chatbot system** that:
 
----
+- Retrieves relevant information from a knowledge base  
+- Maintains conversational context  
+- Generates accurate, grounded responses  
 
-## 3. Objective
-
-The objectives of this project are to:
-
-- Build a **context-aware chatbot** using Retrieval-Augmented Generation (RAG)
-- Enable accurate question answering from an external knowledge source
-- Maintain conversational history for multi-turn interactions
-- Reduce hallucinations by grounding responses in retrieved documents
-- Use **modern LangChain v1.0+ (LCEL)** APIs
-- Provide a clean and secure frontend experience
+The system uses a **Wikipedia knowledge source** and provides a **clean, secure chat interface** using Streamlit.
 
 ---
 
-## 4. System Architecture
+# 🎯 Objectives
 
-### High-Level Components
+The primary goals of this project are:
 
-1. **Frontend (Streamlit)**
-   - API key input
-   - Chat interface
-   - Clear chat history control
-
-2. **Document Loader**
-   - WebBaseLoader (Wikipedia – Artificial Intelligence page)
-
-3. **Text Processing**
-   - RecursiveCharacterTextSplitter
-
-4. **Vector Store**
-   - FAISS for similarity search
-
-5. **Embedding Model**
-   - OpenAI Embeddings (`text-embedding-3-small`)
-
-6. **LLM**
-   - OpenAI Chat Model (`gpt-4o-mini`)
-
-7. **RAG Pipeline (LCEL)**
-   - Contextual question reformulation
-   - Document retrieval
-   - Grounded answer generation
+- Build a **context-aware chatbot**
+- Enable **accurate document-based question answering**
+- Maintain **multi-turn conversation history**
+- Reduce hallucinations using **retrieval grounding**
+- Implement **modern LangChain v1.0+ (LCEL) pipeline**
+- Provide a **secure and user-friendly interface**
 
 ---
 
-## 5. Methodology / Workflow
+# ⚙️ System Architecture
 
-1. **API Key Connection**
-   - User enters OpenAI API key via frontend
-   - Chat functionality enabled only after successful connection
+The system consists of the following main components:
+
+- Streamlit frontend (chat UI + API key input)
+- WebBaseLoader (data ingestion)
+- RecursiveCharacterTextSplitter (text chunking)
+- OpenAI Embeddings (`text-embedding-3-small`)
+- FAISS vector database
+- OpenAI LLM (`gpt-4o-mini`)
+- LangChain LCEL RAG pipeline
+
+The system retrieves relevant document chunks and generates responses grounded in context.
+
+---
+
+# 🧠 Working Principle
+
+1. **API Key Authentication**
+   - User enters OpenAI API key via UI.
 
 2. **Data Ingestion**
-   - Wikipedia page is loaded and parsed
+   - Wikipedia content is loaded and processed.
 
-3. **Chunking**
-   - Text split into overlapping chunks for better retrieval
+3. **Text Chunking**
+   - Data is split into overlapping chunks.
 
-4. **Vectorization**
-   - Text chunks converted into embeddings
-   - Stored in FAISS vector database
+4. **Vector Embedding**
+   - Text is converted into embeddings and stored in FAISS.
 
-5. **Query Processing**
-   - User query reformulated into a standalone question if chat history exists
+5. **Query Reformulation**
+   - User query is converted into a standalone question (if needed).
 
-6. **Retrieval**
-   - Relevant document chunks retrieved using semantic similarity
+6. **Context Retrieval**
+   - Relevant document chunks are retrieved.
 
 7. **Answer Generation**
-   - LLM generates concise answers grounded in retrieved context
+   - LLM generates responses based on retrieved context.
 
-8. **Memory Handling**
-   - Chat history stored using Streamlit session state
-
----
-
-## 6. Key Features
-
-- Context-aware multi-turn conversations
-- Retrieval-Augmented Generation (RAG)
-- Modern LangChain LCEL implementation
-- Secure API key handling
-- Clear chat history functionality
-- Cached vector store for performance
+8. **Conversation Memory**
+   - Chat history is stored for multi-turn interactions.
 
 ---
 
-## 7. Technology Stack
+# 🔌 System Components
 
-- **Programming Language:** Python 3.10+
-- **Frontend:** Streamlit
-- **LLM Framework:** LangChain v1.0+
-- **Vector Database:** FAISS
-- **LLM & Embeddings:** OpenAI
-
----
-
-## 8. Installation & Setup
-
-```bash
-# Clone repository
-git clone https://github.com/your-username/context-aware-rag-chatbot.git
-cd context-aware-rag-chatbot
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run application
-streamlit run app.py
-```
+| Component | Description |
+|--------|--------|
+| Streamlit | Frontend chat interface |
+| LangChain | RAG pipeline orchestration |
+| OpenAI API | LLM + embeddings |
+| FAISS | Vector similarity search |
+| WebBaseLoader | Loads Wikipedia data |
+| Text Splitter | Splits data into chunks |
 
 ---
 
-## 9. Results & Observations
+# 📊 Block Diagram
 
-- The chatbot accurately answers questions based on retrieved context
-- Follow-up questions are handled effectively using conversational memory
-- Retrieval grounding significantly reduces hallucinations
-- Clean UI improves usability and security
+The following diagram illustrates the architecture of the RAG chatbot system.
+
+<img width="800" height="436" alt="image" src="https://github.com/user-attachments/assets/bd3b4e13-9ce8-4488-a35a-6244a9631180" />
+
 
 ---
 
-## 10. Limitations
+# 🔧 Pipeline Flow
 
-- Knowledge limited to the ingested dataset
-- Requires an active OpenAI API key
-- Single-source document ingestion in the current version
+The RAG pipeline consists of:
 
----
+- Contextual query reformulation  
+- Semantic document retrieval  
+- Grounded answer generation  
 
-## 11. Future Enhancements
-
-- Upload and query custom documents (PDF, DOCX, TXT)
-- Multi-document support
-- Streaming responses
-- Agentic RAG (Planner–Retriever–Verifier)
-- Conversation export functionality
+This ensures responses are **accurate, relevant, and context-aware**.
 
 ---
 
-## 12. Conclusion
-This project demonstrates a production-ready implementation of a Context-Aware RAG Chatbot using modern LLM tooling. It provides a scalable foundation for building enterprise-grade conversational AI systems that are accurate, secure, and context-aware.
+# 🧮 Software Algorithm
+
+The algorithm follows these steps:
+
+1. API Key Validation  
+2. Data Loading  
+3. Text Chunking  
+4. Embedding Generation  
+5. Query Processing  
+6. Document Retrieval  
+7. Response Generation  
+8. Memory Update  
+
+---
+
+# 📈 System Flowchart
+
+This flowchart represents the complete workflow of the RAG chatbot.
+
+<img width="1122" height="1402" alt="image" src="https://github.com/user-attachments/assets/3830405e-920c-4105-bdbd-a56f2cc731b4" />
 
 
+---
+
+# 💬 Chat Interface
+
+The system provides:
+
+- Interactive chat UI  
+- API key input field  
+- Clear chat history option  
+- Real-time response generation  
+
+---
+
+# 📂 Project Structure
+
+context-aware-rag-chatbot  
+│  
+├── app.py  
+├── requirements.txt  
+├── README.md  
+│  
+├── /data  
+├── /vectorstore  
+└── /utils  
 
 
+---
+
+# 🚀 Applications
+
+- AI-powered knowledge assistants  
+- Customer support chatbots  
+- Document-based Q&A systems  
+- Enterprise knowledge retrieval  
+- Educational AI tools  
+
+---
+
+# 🔮 Future Improvements
+
+Possible improvements for the system:
+
+- Upload custom documents (PDF, DOCX, TXT)  
+- Multi-document support  
+- Streaming responses  
+- Agentic RAG (Planner–Retriever–Verifier)  
+- Chat export functionality  
+- Deployment on cloud platforms  
+
+---
+
+# 👨‍💻 Author
+
+**Gagandeep Singh**  
+
+Computer Science Student  
+Interested in Artificial Intelligence, LLMs, and System Design.
+
+---
+
+# ⭐ Support
+
+If you find this project useful, please consider giving it a ⭐ on GitHub.
