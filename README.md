@@ -6,6 +6,17 @@ This system combines **LangChain, OpenAI, FAISS, and Streamlit** to enable **mul
 
 ---
 
+## Quick Start
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+For public deployment, see [DEPLOYMENT.md](DEPLOYMENT.md). The app can use an `OPENAI_API_KEY` from Streamlit secrets so normal users can chat without entering their own key.
+
+---
+
 # 📌 Overview
 
 Large Language Models (LLMs) are powerful but often suffer from:
